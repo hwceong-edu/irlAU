@@ -1,6 +1,9 @@
 const express = require("express")
 const app = express()
 const server = require("http").createServer(app)
+const cookieParser = require('cookie-parser')
+
+app.use(cookieParser())
 
 const port = 8000
 
@@ -55,10 +58,14 @@ app.get('/newplayer', (_,res) => {
 			tasksIndex.push(r)
 		}
 	}
-	var tasks = tasksIndex.map(i => taskList[i.toString()])
+	var tasks = tasksIndex.map(i => ({
+		text: taskList[i.toString()],
+		completed: false
+	}))
 
 	if (playerId.length > 0) {
-		res.send({page: 'tasks', id: playerId.pop(), tasks: tasks})
+		const resObj = {page: 'tasks', id: playerId.pop(), tasks: tasks}
+		res.cookie('irlau', JSON.stringify(resObj), { maxAge: 7200000 }).send(resObj)
 	} else {
 		res.send({page: 'full'})
 	}

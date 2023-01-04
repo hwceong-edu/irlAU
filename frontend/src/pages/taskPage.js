@@ -8,7 +8,7 @@ function TaskPage(props) {
 		setHide(!hide)
 		console.log(hide)
 	}
-	
+		
 	return (
 		<div className={styles.taskContainer}>
 			<div className={styles.identity}>
@@ -20,7 +20,7 @@ function TaskPage(props) {
 				{props.playerData.id}		
 			</div>
 			{props.playerData.tasks.map(task => (
-				<ListItem text={task} />
+				<ListItem text={task.text} completed={task.completed} />
 			))}
 		</div>
 	)

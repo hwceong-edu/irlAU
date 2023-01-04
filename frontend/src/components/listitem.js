@@ -3,7 +3,7 @@ import styles from '../styles/listitem.module.css'
 
 function ListItem(props) {
 	const [showModal, toggleModal] = useState(false)
-	const [completed, setComplete] = useState(false)
+	const [completed, setComplete] = useState(props.completed)
 	const openPrompt = () => {
 		toggleModal(true)
 	}
@@ -11,6 +11,8 @@ function ListItem(props) {
 		toggleModal(false)
 		event.stopPropagation()
 	}
+	
+	
 
 	return (
 		<div>
