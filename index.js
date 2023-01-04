@@ -56,8 +56,12 @@ app.get('/newplayer', (_,res) => {
 		}
 	}
 	var tasks = tasksIndex.map(i => taskList[i.toString()])
-	
-	res.send({page: 'tasks', id: playerId.pop(), tasks: tasks})
+
+	if (playerId.length > 0) {
+		res.send({page: 'tasks', id: playerId.pop(), tasks: tasks})
+	} else {
+		res.send({page: 'full'})
+	}
 })
 
 var listener = server.listen(process.env.PORT || port, () => console.log(`Listening on ${listener.address().port}`))
