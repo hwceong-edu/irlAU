@@ -2,7 +2,7 @@ const express = require("express")
 const app = express()
 const server = require("http").createServer(app)
 
-const PORT = process.env.PORT || 8000
+const port = 8000
 
 // game rules
 const playerComp = {
@@ -59,4 +59,4 @@ app.get('/newplayer', (_,res) => {
 	res.send({page: 'tasks', id: playerId.pop(), tasks: tasks})
 })
 
-var listener = server.listen(PORT, () => console.log(`Listening on ${listener.address().port}`))
+var listener = server.listen(process.env.PORT || port, () => console.log(`Listening on ${listener.address().port}`))
