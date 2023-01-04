@@ -32,7 +32,7 @@ function shuffleArray(array) {
 function getIdDist(comp) {
 	let array = []
 
-	for (let i = 0; i < comp.civilians; i++) {
+	for (let i = 0; i < comp.crewmates; i++) {
 		array.push("crewmate")
 	}
 
