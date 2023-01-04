@@ -6,15 +6,16 @@ const port = 8000
 
 // game rules
 const playerComp = {
-	"civilians": 6,
+	"crewmates": 6,
 	"imposters": 2
 }
 
 const taskList = {
-	"1": "task1",
-	"2": "task2",
-	"3": "task3",
-	"4": "task4"
+	"1": "Connect The Dots",
+	"2": "Sudoku",
+	"3": "Word Search",
+	"4": "Crossword",
+	"5": "Spot The Difference"
 }
 
 function shuffleArray(array) {
@@ -32,7 +33,7 @@ function getIdDist(comp) {
 	let array = []
 
 	for (let i = 0; i < comp.civilians; i++) {
-		array.push("civilian")
+		array.push("crewmate")
 	}
 
 	for (let i = 0; i < comp.imposters; i++) {
@@ -49,7 +50,7 @@ app.use(express.static('public'))
 app.get('/newplayer', (_,res) => {
 	var tasksIndex = []
 	while (tasksIndex.length < 3) {
-		var r = Math.floor(Math.random() * 4) + 1
+		var r = Math.floor(Math.random() * 5) + 1
 		if (tasksIndex.indexOf(r) === -1) {
 			tasksIndex.push(r)
 		}
