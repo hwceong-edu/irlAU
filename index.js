@@ -96,8 +96,8 @@ app.get('/check_gameid', (_,res) => {
 })
 
 app.post('/complete_task', (_, res) => {
-	console.log(completedTask == totalTask)
-	if (completedTask == totalTask) {
+	console.log(completedTask === totalTask)
+	if (completedTask === totalTask) {
 		io.sockets.emit("alert", "Crewmates won")
 	} else if (completedTask < totalTask) {
 		completedTask += 1
