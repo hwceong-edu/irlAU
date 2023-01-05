@@ -96,16 +96,17 @@ app.get('/check_gameid', (_,res) => {
 })
 
 app.post('/complete_task', (_, res) => {
-	console.log(completedTask === totalTask)
-	if (completedTask === totalTask) {
-		io.sockets.emit("alert", "Crewmates won")
-	} else if (completedTask < totalTask) {
+	if (completedTask < totalTask) {
 		completedTask += 1
 		res.send(completedTask.toString())
 	} else {
 		res.send("not counted")
 	}
-})
+
+	io.sockets.emit("alert", "Crewmates won")
+	if (completedTask === totalTask) {
+		io.sockets.emit("alert", "Crewmates won")
+	}
 
 io.on('connection', (socket) => {
 	console.log(socket.id)
