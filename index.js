@@ -13,6 +13,9 @@ const playerComp = {
 	"imposters": 2
 }
 
+const totalTask = playerComp.crewmates * 3
+let completedTask = 0
+
 const taskList = {
 	"1": "Connect The Dots",
 	"2": "Sudoku",
@@ -58,16 +61,28 @@ app.get('/newplayer', (_,res) => {
 			tasksIndex.push(r)
 		}
 	}
-	var tasks = tasksIndex.map(i => ({
-		text: taskList[i.toString()],
-		completed: false
-	}))
 
 	if (playerId.length > 0) {
+		var tasks = tasksIndex.map((i,relI) => ({
+			index: relI,
+			text: taskList[i.toString()],
+			completed: false
+		}))
+
 		const resObj = {page: 'tasks', id: playerId.pop(), tasks: tasks}
-		res.cookie('irlau', JSON.stringify(resObj), { maxAge: 7200000 }).send(resObj)
+		res.cookie('irlau', JSON.stringify(resObj), { maxAge: 1800000 }).send(resObj)
+
 	} else {
 		res.send({page: 'full'})
+	}
+})
+
+app.post('/complete_task', (_, res) => {
+	if (completedTask < totalTask) {
+		completedTask += 1
+		res.send(completedTask)
+	} else {
+		res.send("not counted")
 	}
 })
 

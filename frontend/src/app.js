@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
 
 import JoinPage from './pages/joinPage'
@@ -12,9 +12,13 @@ function App() {
 	const API_URL = window.location.href
 	const pages = {
 		'join': <JoinPage api={API_URL} setPage={setPage} setPlayerData={setPlayerData} />,
-		'tasks': <TaskPage setPage={setPage} playerData={playerData} />,
+		'tasks': <TaskPage setPage={setPage} setPlayerData={setPlayerData} playerData={playerData} />,
 		'full': <FullPage />
 	}
+
+	useEffect(() => {
+		Cookies.set('irlau', JSON.stringify(playerData))
+	}, [playerData])
 
 	return (
 		(pages[page])

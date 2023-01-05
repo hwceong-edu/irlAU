@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+
 import ListItem from '../components/listitem'
 import styles from '../styles/taskpage.module.css'
 
@@ -6,9 +7,18 @@ function TaskPage(props) {
 	const [hide, setHide] = useState(true)
 	const hideToggle = () => {
 		setHide(!hide)
-		console.log(hide)
 	}
-		
+	const setCookieTaskComplete = (i) => {
+		const tempData = {...props.playerData}
+		tempData.tasks.forEach(task => {
+			if (task.index === i) {
+				task.completed = true
+			}
+		})
+		props.setPlayerData(tempData)	
+
+	}
+
 	return (
 		<div className={styles.taskContainer}>
 			<div className={styles.identity}>
@@ -19,8 +29,8 @@ function TaskPage(props) {
 				></div>
 				{props.playerData.id}		
 			</div>
-			{props.playerData.tasks.map(task => (
-				<ListItem text={task.text} completed={task.completed} />
+			{props.playerData.tasks.map((task, i) => (
+				<ListItem id={props.playerData.id} text={task.text}  completed={task.completed} setCookie={() => setCookieTaskComplete(i)} />
 			))}
 		</div>
 	)

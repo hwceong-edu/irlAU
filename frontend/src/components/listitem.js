@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+
 import styles from '../styles/listitem.module.css'
 
 function ListItem(props) {
@@ -11,8 +12,16 @@ function ListItem(props) {
 		toggleModal(false)
 		event.stopPropagation()
 	}
-	
-	
+	const yesClick = (event) => {
+		fetch('complete_task', {
+			method: 'POST'
+		}).then(res => console.log(res))	
+		setComplete(true)
+		toggleModal(false)
+		props.setCookie()
+		event.stopPropagation()
+	}
+	const isCrewmate = props.id === "crewmate" ? true : false
 
 	return (
 		<div>
@@ -20,16 +29,16 @@ function ListItem(props) {
 			<div onClick={e => closePrompt(e)} className={styles.backdrop}>
 				<div onClick={event => event.stopPropagation()} className={styles.modal}>
 					Did you complete the task?
-					<button onClick={(event)=>{
-						setComplete(true)
-						toggleModal(false)
-						event.stopPropagation()
-					}} className={styles.modal_button_primary}>Yes</button>
-					<button onClick={e=> closePrompt(e)} className={styles.modal_button_secondary}>No</button>
+					<button
+						onClick={ (isCrewmate ? e => yesClick(e) : null) } 
+						className={styles.modal_button_primary}>
+						Yes
+					</button>
+					<button onClick={ e => closePrompt(e) } className={styles.modal_button_secondary}>No</button>
 				</div>	
 			</div>
 			: null}
-			<div onClick={openPrompt} className={`${styles.item} ${completed ? styles.completed : styles.uncompleted}`}>
+			<div onClick={(completed ? null : openPrompt)} className={`${styles.item} ${completed ? styles.completed : styles.uncompleted}`}>
 				<div>{props.text}</div>
 			</div>
 		</div>
