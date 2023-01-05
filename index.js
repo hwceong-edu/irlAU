@@ -107,6 +107,7 @@ app.post('/complete_task', (_, res) => {
 	if (completedTask === totalTask) {
 		io.sockets.emit("alert", "Crewmates won")
 	}
+})
 
 io.on('connection', (socket) => {
 	console.log(socket.id)
