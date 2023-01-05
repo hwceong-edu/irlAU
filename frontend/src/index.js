@@ -4,7 +4,9 @@ import { io } from 'socket.io-client'
 import App from './app'
 	
 const socket = io()
-
+socket.on('connect', () => {
+	console.log(socket.id)
+})
 socket.on("alert", (msg) => {
 	alert(msg)
 })
