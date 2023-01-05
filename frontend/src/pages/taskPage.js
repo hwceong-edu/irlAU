@@ -32,7 +32,6 @@ function TaskPage(props) {
 				<ListItem id={props.playerData.id} text={task.text}  completed={task.completed} setCookie={() => setCookieTaskComplete(i)} />
 			))}
 			<button onClick={() => {
-				document.getElementById('report').play()
 				props.socket.emit("report")	
 			}}>Report</button>
 		</div>

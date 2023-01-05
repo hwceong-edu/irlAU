@@ -8,6 +8,7 @@ socket.on('connect', () => {
 	console.log(socket.id)
 })
 socket.on("alert", (msg) => {
+	document.getElementById('report').play()
 	alert(msg)
 })
 
