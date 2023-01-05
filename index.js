@@ -2,6 +2,9 @@ const express = require("express")
 const app = express()
 const server = require("http").createServer(app)
 const cookieParser = require('cookie-parser')
+const { Server } = require('socket.io')
+const { totalmem } = require("os")
+const io = new Server(server)
 
 app.use(cookieParser())
 
@@ -22,6 +25,16 @@ const taskList = {
 	"3": "Word Search",
 	"4": "Crossword",
 	"5": "Spot The Difference"
+}
+
+function makeid(length) {
+    var result           = ''
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    var charactersLength = characters.length
+    for ( var i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength))
+    }
+    return result
 }
 
 function shuffleArray(array) {
@@ -50,6 +63,7 @@ function getIdDist(comp) {
 }
 
 const playerId = getIdDist(playerComp)
+const gameId = makeid(8)
 
 app.use(express.static('public'))
 
@@ -69,7 +83,7 @@ app.get('/newplayer', (_,res) => {
 			completed: false
 		}))
 
-		const resObj = {page: 'tasks', id: playerId.pop(), tasks: tasks}
+		const resObj = {gameid: gameId, page: 'tasks', id: playerId.pop(), tasks: tasks}
 		res.cookie('irlau', JSON.stringify(resObj), { maxAge: 1800000 }).send(resObj)
 
 	} else {
@@ -77,13 +91,23 @@ app.get('/newplayer', (_,res) => {
 	}
 })
 
+app.get('/check_gameid', (_,res) => {
+	res.send({gameid: gameId})
+})
+
 app.post('/complete_task', (_, res) => {
-	if (completedTask < totalTask) {
+	if (completedTask == totalTask) {
+		io.sockets.emit("alert", "Crewmates won")
+	} else if (completedTask < totalTask) {
 		completedTask += 1
-		res.send(completedTask)
+		res.send(completedTask.toString())
 	} else {
 		res.send("not counted")
 	}
+})
+
+io.on('connection', (socket) => {
+	console.log(socket.id)
 })
 
 var listener = server.listen(process.env.PORT || port, () => console.log(`Listening on ${listener.address().port}`))

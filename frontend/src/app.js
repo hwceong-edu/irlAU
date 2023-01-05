@@ -19,6 +19,16 @@ function App() {
 	useEffect(() => {
 		Cookies.set('irlau', JSON.stringify(playerData))
 	}, [playerData])
+	
+	if (cookieData) {
+		fetch('check_gameid', {
+			method: "GET"
+		}).then(res => res.json()).then(data => {
+			if (data.gameid !== cookieData.gameid) {
+				setPage('join')
+			}
+		})
+	} 
 
 	return (
 		(pages[page])

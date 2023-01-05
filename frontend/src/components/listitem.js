@@ -15,7 +15,7 @@ function ListItem(props) {
 	const yesClick = (event) => {
 		fetch('complete_task', {
 			method: 'POST'
-		}).then(res => console.log(res))	
+		})	
 		setComplete(true)
 		toggleModal(false)
 		props.setCookie()
