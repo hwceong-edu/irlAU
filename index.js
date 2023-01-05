@@ -12,8 +12,8 @@ const port = 8000
 
 // game rules
 const playerComp = {
-	"crewmates": 6,
-	"imposters": 2
+	"crewmates": 2,
+	"imposters": 1
 }
 
 const totalTask = playerComp.crewmates * 3
