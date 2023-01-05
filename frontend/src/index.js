@@ -7,10 +7,6 @@ const socket = io()
 socket.on('connect', () => {
 	console.log(socket.id)
 })
-socket.on("alert", (msg) => {
-	document.getElementById('report').play()
-	alert(msg)
-})
 
 // TODO: Move socket listeners into respective components for better UI then alert
 const root = ReactDOM.createRoot(document.getElementById("root"))

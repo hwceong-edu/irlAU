@@ -4,6 +4,7 @@ import styles from '../styles/taskpage.module.css'
 
 function TaskPage(props) {
 	const [hide, setHide] = useState(true)
+	const [alert, showAlert] = useState(false)
 	const hideToggle = () => {
 		setHide(!hide)
 	}
@@ -18,8 +19,26 @@ function TaskPage(props) {
 
 	}
 
+	props.socket.on("alert", (_) => {
+		document.getElementById('report').play()	
+		showAlert(true)
+	})
+
+	const closePrompt = (event) => {
+		showAlert(false)
+		event.stopPropagation()
+	}
+
+
 	return (
 		<div className={styles.taskContainer}>
+			{ alert ? 
+				<div onClick={e => closePrompt(e)} className={styles.backdrop}>
+					<div onClick = {e => e.stopPropagation()} className={styles.modal}>
+						EMERGENCY MEETING
+					</div>
+				</div>
+				: null}
 			<div className={styles.identity}>
 				<div
 					onClick={hideToggle}
