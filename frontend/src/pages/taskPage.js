@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-
 import ListItem from '../components/listitem'
 import styles from '../styles/taskpage.module.css'
 
@@ -32,6 +31,9 @@ function TaskPage(props) {
 			{props.playerData.tasks.map((task, i) => (
 				<ListItem id={props.playerData.id} text={task.text}  completed={task.completed} setCookie={() => setCookieTaskComplete(i)} />
 			))}
+			<button onClick={() => {
+				props.socket.emit("report")	
+			}}>Report</button>
 		</div>
 	)
 }

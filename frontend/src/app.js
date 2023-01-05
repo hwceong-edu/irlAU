@@ -5,14 +5,14 @@ import JoinPage from './pages/joinPage'
 import TaskPage from './pages/taskPage'
 import FullPage from './pages/fullPage'
 
-function App() {
+function App(props) {
 	const cookieData = Cookies.get('irlau') ? JSON.parse(Cookies.get('irlau')) : false
 	const [page, setPage] = useState(cookieData ? cookieData.page : 'join')
 	const [playerData, setPlayerData] = useState(cookieData ? cookieData : null)
 	const API_URL = window.location.href
 	const pages = {
 		'join': <JoinPage api={API_URL} setPage={setPage} setPlayerData={setPlayerData} />,
-		'tasks': <TaskPage setPage={setPage} setPlayerData={setPlayerData} playerData={playerData} />,
+		'tasks': <TaskPage socket={props.socket} setPage={setPage} setPlayerData={setPlayerData} playerData={playerData} />,
 		'full': <FullPage />
 	}
 

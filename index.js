@@ -95,22 +95,22 @@ app.get('/check_gameid', (_,res) => {
 	res.send({gameid: gameId})
 })
 
-app.post('/complete_task', (_, res) => {
+app.post('/complete_task', (_, __) => {	
 	if (completedTask < totalTask) {
 		completedTask += 1
-		res.send(completedTask.toString())
-	} else {
-		res.send("not counted")
 	}
-
-	io.sockets.emit("alert", "Crewmates won")
+	
 	if (completedTask === totalTask) {
 		io.sockets.emit("alert", "Crewmates won")
 	}
+
 })
 
 io.on('connection', (socket) => {
 	console.log(socket.id)
+	socket.on('report', (_) => {
+		io.sockets.emit('alert', "EMERGENCY MEETING")
+	})
 })
 
 var listener = server.listen(process.env.PORT || port, () => console.log(`Listening on ${listener.address().port}`))
