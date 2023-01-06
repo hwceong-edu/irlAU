@@ -22,6 +22,7 @@ function TaskPage(props) {
 	}
 
 	props.socket.on("alert", (msg) => {
+		console.log(msg)
 		setMsg(msg)
 		props.alertAudio.play()
 		showAlert(true)

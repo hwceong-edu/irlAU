@@ -99,6 +99,7 @@ app.post('/complete_task', (_, __) => {
 		completedTask += 1
 	}
 	
+	console.log(completedTask === totalTask)
 	if (completedTask === totalTask) {
 		io.sockets.emit('alert', "Crewmates won")
 	}
