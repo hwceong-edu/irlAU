@@ -56,6 +56,11 @@ function TaskPage(props) {
 			<button onClick={() => {
 				props.socket.emit("report")	
 			}}>Report</button>
+			<button onClick={() => {
+				props.alertAudio.play()
+				props.alertAudio.pause()
+				props.alertAudio.currentTime = 0
+			}}>IOS unlock audio</button>
 		</div>
 	)
 }

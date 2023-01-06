@@ -6,7 +6,7 @@ import App from './app'
 const socket = io()
 
 const alertAudio = new Audio('bell.wav')
-alertAudio.autoplay = true
+alertAudio.src = 'bell.wav'
 
 socket.on('connect', () => {
 	console.log(socket.id)
