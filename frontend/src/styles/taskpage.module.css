@@ -45,3 +45,17 @@
 	border-radius: 10px;
 	box-shadow: 3px 3px .4em rgba(245,246,247, .7), -3px 3px .4em rgba(245,246,247, .7);
 }
+
+.report_button {
+	padding: 25px 15px 25px 15px;
+	color: #fff;
+	border-radius: 10px;
+	background-color: #ff6961;
+}
+
+.audio_button {
+	padding: 10px;
+	background-color: #fff;
+	box-shadow: 0px 1px 0px rgba(0,0,0,.2);
+	border-radius: 10px;
+}

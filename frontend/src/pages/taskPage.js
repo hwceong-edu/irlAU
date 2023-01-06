@@ -6,6 +6,7 @@ function TaskPage(props) {
 	const [hide, setHide] = useState(true)
 	const [alert, showAlert] = useState(false)
 	const [msg, setMsg] = useState("")
+	const [showUnlock, setUnlock] = useState(false)
 	const hideToggle = () => {
 		setHide(!hide)
 	}
@@ -53,14 +54,19 @@ function TaskPage(props) {
 			{props.playerData.tasks.map((task, i) => (
 				<ListItem id={props.playerData.id} text={task.text}  completed={task.completed} setCookie={() => setCookieTaskComplete(i)} />
 			))}
-			<button onClick={() => {
-				props.socket.emit("report")	
-			}}>Report</button>
-			<button onClick={() => {
-				props.alertAudio.play()
-				props.alertAudio.pause()
-				props.alertAudio.currentTime = 0
-			}}>IOS unlock audio</button>
+			<button 
+				onClick={() => {
+					props.socket.emit("report")	
+				}}
+				className={styles.report_button}>Report</button>
+			{ showUnlock ? null : <button
+				onClick={() => {
+					props.alertAudio.play()
+					props.alertAudio.pause()
+					props.alertAudio.currentTime = 0
+					setUnlock(true)
+				}}
+				className={styles.audio_button}>IOS unlock audio</button>} 
 		</div>
 	)
 }
