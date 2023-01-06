@@ -37,10 +37,11 @@
 	left: 13%;
 	width: 70%;
 	height: auto;
-	background-color: #fff;
-	padding: 10px;
-	border: 1px solid #f5f6f7;
+	background-color: #ff6961;
+	padding: 40px 20px 40px 20px;
 	z-index: 50;
+	color: #fff;
+	font-size: 30px;
 	border-radius: 10px;
 	box-shadow: 3px 3px .4em rgba(245,246,247, .7), -3px 3px .4em rgba(245,246,247, .7);
 }

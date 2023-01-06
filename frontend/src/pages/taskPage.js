@@ -5,6 +5,8 @@ import styles from '../styles/taskpage.module.css'
 function TaskPage(props) {
 	const [hide, setHide] = useState(true)
 	const [alert, showAlert] = useState(false)
+	const audio = new Audio('bell.wav')
+	audio.autoplay = true
 	const hideToggle = () => {
 		setHide(!hide)
 	}
@@ -19,8 +21,8 @@ function TaskPage(props) {
 
 	}
 
-	props.socket.on("alert", (_) => {
-		document.getElementById('report').play()	
+	props.socket.on("alert", () => {
+		audio.play()
 		showAlert(true)
 	})
 
