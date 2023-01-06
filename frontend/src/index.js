@@ -4,12 +4,15 @@ import { io } from 'socket.io-client'
 import App from './app'
 	
 const socket = io()
+
+const alertAudio = new Audio('bell.wav')
+alertAudio.autoplay = true
+
 socket.on('connect', () => {
 	console.log(socket.id)
 })
 
-// TODO: Move socket listeners into respective components for better UI then alert
 const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(
-	<App socket={socket} />
+	<App alertAudio={alertAudio} socket={socket} />
 )

@@ -11,8 +11,16 @@ function App(props) {
 	const [playerData, setPlayerData] = useState(cookieData ? cookieData : null)
 	const API_URL = window.location.href
 	const pages = {
-		'join': <JoinPage api={API_URL} setPage={setPage} setPlayerData={setPlayerData} />,
-		'tasks': <TaskPage socket={props.socket} setPage={setPage} setPlayerData={setPlayerData} playerData={playerData} />,
+		'join': <JoinPage 
+					api={API_URL}
+					setPage={setPage}
+					setPlayerData={setPlayerData} />,
+		'tasks': <TaskPage 
+					socket={props.socket}
+					alertAudio={props.alertAudio}
+					setPage={setPage}
+					setPlayerData={setPlayerData}
+					playerData={playerData} />,
 		'full': <FullPage />
 	}
 

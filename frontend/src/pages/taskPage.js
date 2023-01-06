@@ -5,11 +5,10 @@ import styles from '../styles/taskpage.module.css'
 function TaskPage(props) {
 	const [hide, setHide] = useState(true)
 	const [alert, showAlert] = useState(false)
-	const audio = new Audio('bell.wav')
-	audio.autoplay = true
 	const hideToggle = () => {
 		setHide(!hide)
 	}
+
 	const setCookieTaskComplete = (i) => {
 		const tempData = {...props.playerData}
 		tempData.tasks.forEach(task => {
@@ -22,11 +21,13 @@ function TaskPage(props) {
 	}
 
 	props.socket.on("alert", () => {
-		audio.play()
+		props.alertAudio.play()
 		showAlert(true)
 	})
 
 	const closePrompt = (event) => {
+		props.alertAudio.pause()
+		props.alertAudio.currentTime = 0
 		showAlert(false)
 		event.stopPropagation()
 	}
