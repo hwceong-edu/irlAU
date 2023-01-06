@@ -3,7 +3,6 @@ const app = express()
 const server = require("http").createServer(app)
 const cookieParser = require('cookie-parser')
 const { Server } = require('socket.io')
-const { totalmem } = require("os")
 const io = new Server(server)
 
 app.use(cookieParser())
@@ -12,8 +11,8 @@ const port = 8000
 
 // game rules
 const playerComp = {
-	"crewmates": 2,
-	"imposters": 1
+	"crewmates": 6,
+	"imposters": 2
 }
 
 const totalTask = playerComp.crewmates * 3
@@ -101,7 +100,7 @@ app.post('/complete_task', (_, __) => {
 	}
 	
 	if (completedTask === totalTask) {
-		io.sockets.emit("alert", "Crewmates won")
+		io.sockets.emit('alert', "Crewmates won")
 	}
 
 })
